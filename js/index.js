@@ -175,15 +175,12 @@ function clock(context) {
 }
 
 function reset() {
-    if(g_state.state == "inactive") return;
-    
-    if(g_state.state == "pause") {
+    if (g_state.state != "inactive") {
         const context = g_state.canvas.getContext('2d');
         context.clearRect(0, 0, innerWidth, innerHeight);
+        g_state.start_time=Date.now();
+        g_state.state = "reset";
     }
-
-    g_state.start_time=Date.now();
-    g_state.state = "reset";
 }
 
 function pause() {
