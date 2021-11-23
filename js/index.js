@@ -250,7 +250,6 @@ function init() {
     g_state.start_button.onclick = start;
     g_state.reset_button.onclick = reset;
     g_state.pause_button.onclick = pause;
-    //animate(ballList);
 }
 
 init();
