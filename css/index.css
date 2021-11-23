@@ -1,0 +1,65 @@
+.ball {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    background-color: blue;
+    border-radius: 50%;
+}
+
+#ball1 {
+    background-color: blue;
+}
+
+#ball2 {
+    background-color: green;
+}
+
+#ball3 {
+    background-color: yellow;
+}
+
+#ball4 {
+    background-color: pink;
+}
+
+#main_board {
+    width: 96vw;
+    height: 94vh;
+    position:relative;
+    background-color: white;
+}
+
+#container {
+    width: 98vw;
+    height: 98vh;
+    background-color: blue;
+
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+#canvas {
+    border: 5px solid blue;
+    height: 91%;
+    width: 99%;
+}
+
+#controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 50rem;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#controls button{
+    font-size:x-large;
+}
+
+#controls input{
+    font-size:x-large;
+    width: 80px;
+}
