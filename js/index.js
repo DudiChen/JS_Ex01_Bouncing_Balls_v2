@@ -3,7 +3,9 @@ let g_state = {
     start_button: document.getElementById("start-button"),
     pause_button: document.getElementById("pause-button"),
     reset_button: document.getElementById("reset-button"),
+    timeout_input: document.getElementById("timeout"),
     start_time: Date.now(),
+    timeout: null,
     state: "inactive",
     ballList: null
 }
@@ -184,7 +186,8 @@ function reset() {
 }
 
 function pause() {
-    g_state.state = "pause";
+    if (g_state.state != 'inactive')
+        g_state.state = "pause";
 }
 
 function start() {
@@ -198,6 +201,17 @@ function start() {
 
 function animate(ballList) {
 
+    if((g_state.timeout != null && (Date.now - g_state.start_time) >=  g_state.timeout_input.value)) {
+        confirm("timeout reached")
+        return;
+    }
+
+    if(ballList.length == 1) {
+        console.log(ballList)
+        confirm(`${ballList[0].fill_color} wins!`)
+        return;
+    }
+
     const context = g_state.canvas.getContext('2d');
     context.clearRect(0, 0, innerWidth, innerHeight);
 
@@ -208,6 +222,7 @@ function animate(ballList) {
         ballList[i].move();
         checkHits(ballList[i], ballList);
         if(ballList[i].explode) {
+            console.log(ballList[i]);
             ballList.splice(i, 1);
         }
     }
@@ -244,12 +259,24 @@ function calcDistance(ball1, ball2) {
     return root;
 }
 
+function update_timeout() {
+    g_state.timeout = g_state.timeout_input.value;
+    console.log(`timeout changed to ${g_state.timeout_input.value}`)
+}
+
 function init() {
     g_state.canvas.width = window.innerWidth;
     g_state.canvas.height = window.innerHeight;
     g_state.start_button.onclick = start;
     g_state.reset_button.onclick = reset;
     g_state.pause_button.onclick = pause;
+    g_state.timeout_input.oninput = update_timeout;
+    window.onbeforeunload = (event) => {
+        if (g_state.state == 'pause' || g_state.state == 'start') {
+            event.preventDefault();
+            event.returnValue = '';
+        }
+    } 
 }
 
 init();
