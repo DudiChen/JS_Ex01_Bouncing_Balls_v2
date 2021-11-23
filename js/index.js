@@ -165,7 +165,7 @@ function allMove() {
 
     return ballList;
 }
-
+ 
 function clock(context) {
     let seconds = Math.floor((Date.now() - g_state.start_time)/1000);
     let minutes = Math.floor(seconds/60);
@@ -188,18 +188,11 @@ function pause() {
 }
 
 function start() {
-    if(g_state.state == "start" || g_state.state == "inactive") {
-        g_state.ballList = allMove();
-    }
-    if(g_state.state == "reset") {
-        g_state.state = "start";
+    if (g_state.state != "pause") {
         g_state.ballList = allMove();
     }
 
-    if(g_state.state == "pause") {
-        g_state.state = "start";
-    }
-
+    g_state.state = "start";
     animate(g_state.ballList);
 }
 
